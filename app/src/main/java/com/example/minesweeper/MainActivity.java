@@ -14,41 +14,41 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String FLAG_TEXT = "\uD83D\uDEA9 ";
+    private static final String TIME_TEXT = "\uD83D\uDD53 ";
     private static final int COLUMN_COUNT = 10;
     private static final int ROW_COUNT = 12;
+    private static final int NUM_MINES = 4;
 
     // save the TextViews of all cells in an array, so later on,
     // when a TextView is clicked, we know which cell it is
     private ArrayList<TextView> cell_tvs;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         cell_tvs = new ArrayList<>();
-
         GridLayout grid = findViewById(R.id.gridLayout01);
-
         LayoutInflater li = LayoutInflater.from(this);
         for (int i = 0; i < ROW_COUNT; i++) {
             for (int j = 0; j < COLUMN_COUNT; j++) {
                 TextView tv = (TextView) li.inflate(R.layout.custom_cell_layout, grid, false);
-                //tv.setText(String.valueOf(i)+String.valueOf(j));
                 tv.setTextColor(Color.GRAY);
                 tv.setBackgroundColor(Color.GRAY);
                 tv.setOnClickListener(this::onClickTV);
-
                 GridLayout.LayoutParams lp = (GridLayout.LayoutParams) tv.getLayoutParams();
                 lp.rowSpec = GridLayout.spec(i);
                 lp.columnSpec = GridLayout.spec(j);
-
                 grid.addView(tv, lp);
-
                 cell_tvs.add(tv);
             }
         }
-
+        TextView tv_flag = findViewById(R.id.tv_flag);
+        TextView tv_time = findViewById(R.id.tv_time);
+        tv_flag.setText(FLAG_TEXT + NUM_MINES);
+        tv_time.setText(TIME_TEXT + NUM_MINES);
     }
 
     private int findIndexOfCellTextView(TextView tv) {

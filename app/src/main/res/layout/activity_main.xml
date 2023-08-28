@@ -6,84 +6,118 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridLayout01"
-        android:layout_width="340dp"
-        android:layout_height="500dp"
-        android:layout_gravity="center|center_horizontal|center_vertical"
-        app:columnCount="10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:rowCount="12">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="60sp"
+                tools:layout_conversion_absoluteHeight="80dp"
+                tools:layout_conversion_absoluteWidth="0dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="60sp"
+                tools:layout_conversion_absoluteHeight="80dp"
+                tools:layout_conversion_absoluteWidth="0dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </LinearLayout>
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/gridLayout01"
+            android:layout_width="340dp"
+            android:layout_height="408dp"
+            android:layout_gravity="center"
+            android:minWidth="340dp"
+            android:minHeight="408dp"
+            app:columnCount="10"
+            app:rowCount="12">
 
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView00"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="2dp"-->
-        <!--            android:layout_marginTop="2dp"-->
-        <!--            android:layout_marginEnd="2dp"-->
-        <!--            android:layout_marginBottom="2dp"-->
-        <!--            android:height="64dp"-->
-        <!--            android:width="64dp"-->
-        <!--            android:text="@string/flag"-->
-        <!--            android:textSize="32sp"-->
-        <!--            android:textAlignment="center"-->
-        <!--            app:layout_column="0"-->
-        <!--            app:layout_row="0" />-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/textView00"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginStart="2dp"-->
+            <!--            android:layout_marginTop="2dp"-->
+            <!--            android:layout_marginEnd="2dp"-->
+            <!--            android:layout_marginBottom="2dp"-->
+            <!--            android:height="64dp"-->
+            <!--            android:width="64dp"-->
+            <!--            android:text="@string/flag"-->
+            <!--            android:textSize="32sp"-->
+            <!--            android:textAlignment="center"-->
+            <!--            app:layout_column="0"-->
+            <!--            app:layout_row="0" />-->
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView01"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="2dp"-->
-        <!--            android:layout_marginTop="2dp"-->
-        <!--            android:layout_marginEnd="2dp"-->
-        <!--            android:layout_marginBottom="2dp"-->
-        <!--            android:height="64dp"-->
-        <!--            android:width="64dp"-->
-        <!--            android:text="@string/mine"-->
-        <!--            android:textSize="32sp"-->
-        <!--            android:textAlignment="center"-->
-        <!--            app:layout_column="1"-->
-        <!--            app:layout_row="0" />-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/textView01"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginStart="2dp"-->
+            <!--            android:layout_marginTop="2dp"-->
+            <!--            android:layout_marginEnd="2dp"-->
+            <!--            android:layout_marginBottom="2dp"-->
+            <!--            android:height="64dp"-->
+            <!--            android:width="64dp"-->
+            <!--            android:text="@string/mine"-->
+            <!--            android:textSize="32sp"-->
+            <!--            android:textAlignment="center"-->
+            <!--            app:layout_column="1"-->
+            <!--            app:layout_row="0" />-->
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView10"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="2dp"-->
-        <!--            android:layout_marginTop="2dp"-->
-        <!--            android:layout_marginEnd="2dp"-->
-        <!--            android:layout_marginBottom="2dp"-->
-        <!--            android:height="64dp"-->
-        <!--            android:width="64dp"-->
-        <!--            android:text="10"-->
-        <!--            android:textSize="32sp"-->
-        <!--            android:textAlignment="center"-->
-        <!--            app:layout_column="0"-->
-        <!--            app:layout_row="1" />-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/textView10"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginStart="2dp"-->
+            <!--            android:layout_marginTop="2dp"-->
+            <!--            android:layout_marginEnd="2dp"-->
+            <!--            android:layout_marginBottom="2dp"-->
+            <!--            android:height="64dp"-->
+            <!--            android:width="64dp"-->
+            <!--            android:text="10"-->
+            <!--            android:textSize="32sp"-->
+            <!--            android:textAlignment="center"-->
+            <!--            app:layout_column="0"-->
+            <!--            app:layout_row="1" />-->
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView11"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="2dp"-->
-        <!--            android:layout_marginTop="2dp"-->
-        <!--            android:layout_marginEnd="2dp"-->
-        <!--            android:layout_marginBottom="2dp"-->
-        <!--            android:width="64dp"-->
-        <!--            android:height="64dp"-->
-        <!--            android:text="11"-->
-        <!--            android:textSize="32sp"-->
-        <!--            android:textAlignment="center"-->
-        <!--            app:layout_column="1"-->
-        <!--            app:layout_row="1" />-->
+            <!--        <TextView-->
+            <!--            android:id="@+id/textView11"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginStart="2dp"-->
+            <!--            android:layout_marginTop="2dp"-->
+            <!--            android:layout_marginEnd="2dp"-->
+            <!--            android:layout_marginBottom="2dp"-->
+            <!--            android:width="64dp"-->
+            <!--            android:height="64dp"-->
+            <!--            android:text="11"-->
+            <!--            android:textSize="32sp"-->
+            <!--            android:textAlignment="center"-->
+            <!--            app:layout_column="1"-->
+            <!--            app:layout_row="1" />-->
 
-    </androidx.gridlayout.widget.GridLayout>
+        </androidx.gridlayout.widget.GridLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
