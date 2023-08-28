@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final int COLUMN_COUNT = 2;
-    private static final int ROW_COUNT = 8;
+    private static final int ROW_COUNT = 9;
 
     // save the TextViews of all cells in an array, so later on,
     // when a TextView is clicked, we know which cell it is
