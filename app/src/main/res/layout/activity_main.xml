@@ -15,6 +15,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:orientation="horizontal">
 
             <TextView
@@ -46,6 +47,7 @@
             android:layout_width="340dp"
             android:layout_height="408dp"
             android:layout_gravity="center"
+            android:layout_weight="33"
             android:minWidth="340dp"
             android:minHeight="408dp"
             app:columnCount="10"
@@ -117,6 +119,14 @@
             <!--            app:layout_row="1" />-->
 
         </androidx.gridlayout.widget.GridLayout>
+
+        <TextView
+            android:id="@+id/bottom_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textAlignment="center"
+            android:textSize="60sp" />
 
     </LinearLayout>
 
