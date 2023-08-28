@@ -15,7 +15,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:layout_gravity="center"
-        app:rowCount="10"
+        app:rowCount="12"
         app:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
