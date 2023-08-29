@@ -3,8 +3,10 @@ package com.example.minesweeper;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +17,13 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private static final String DIG_ICON = "⛏";
-    private static final String MINE_ICON = "\uD83D\uDCA3";
     private static final String FLAG_ICON = "\uD83D\uDEA9";
     private static final String FLAG_TEXT = FLAG_ICON + " ";
     private static final String TIME_TEXT = "\uD83D\uDD53 ";
 
     private ArrayList<TextView> cell_tvs;
     private TextView tv_flag;
+    private TextView tv_time;
     private TextView bottom_icon;
 
     private static final int COLUMN_COUNT = 10;
@@ -32,11 +34,19 @@ public class MainActivity extends AppCompatActivity {
     private final int[][] status = new int[ROW_COUNT][COLUMN_COUNT];
     private boolean is_flag_mode = false;
     private int mines_left = NUM_MINES;
+    private int time = 0;
+    private boolean started_timer = false;
+    private boolean is_win = false;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init_game();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void init_game() {
         setContentView(R.layout.activity_main);
         cell_tvs = new ArrayList<>();
         GridLayout grid = findViewById(R.id.gridLayout01);
@@ -55,11 +65,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        is_flag_mode = false;
+        mines_left = NUM_MINES;
+        time = 0;
+        started_timer = false;
+        is_win = false;
+
         tv_flag = findViewById(R.id.tv_flag);
-        TextView tv_time = findViewById(R.id.tv_time);
+        tv_time = findViewById(R.id.tv_time);
         bottom_icon = findViewById(R.id.bottom_icon);
         tv_flag.setText(FLAG_TEXT + NUM_MINES);
-        tv_time.setText(TIME_TEXT + NUM_MINES);
+        tv_time.setText(TIME_TEXT + "0");
         bottom_icon.setText(DIG_ICON);
         bottom_icon.setOnClickListener(this::switch_mode);
 
@@ -89,7 +105,19 @@ public class MainActivity extends AppCompatActivity {
         if (is_flag_mode) {
             flag_cell(i, j);
         } else {
-            uncover_cell(i, j);
+            if (status[i][j] == 0) {
+                if (board[i][j] == -1) {
+                    display_results();
+                } else {
+                    uncover_cell(i, j);
+                    if (!started_timer) {
+                        time = 0;
+                        started_timer = true;
+                        start_timer();
+                    }
+                    check_win();
+                }
+            }
         }
     }
 
@@ -152,8 +180,6 @@ public class MainActivity extends AppCompatActivity {
                 uncover_cell(i + 1, j - 1);
                 uncover_cell(i + 1, j);
                 uncover_cell(i + 1, j + 1);
-            } else if (cell == -1) {
-                tv.setText(MINE_ICON);
             } else {
                 tv.setText(String.valueOf(cell));
             }
@@ -164,5 +190,55 @@ public class MainActivity extends AppCompatActivity {
     public void switch_mode(View view) {
         is_flag_mode = !is_flag_mode;
         bottom_icon.setText(is_flag_mode ? FLAG_ICON : DIG_ICON);
+    }
+
+    private void start_timer() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (started_timer) {
+                    update_timer();
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        }, 1000);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void update_timer() {
+        time++;
+        tv_time.setText(TIME_TEXT + time);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void display_results() {
+        started_timer = false;
+        setContentView(R.layout.results_screen);
+        TextView results_text1 = findViewById(R.id.results_text1);
+        TextView results_text2 = findViewById(R.id.results_text2);
+        TextView results_text3 = findViewById(R.id.results_text3);
+        Button replay_button = findViewById(R.id.replay_button);
+        results_text1.setText("Used " + time + " second" + (time == 1 ? "" : "s") + ".");
+        results_text2.setText("You " + (is_win ? "won" : "lost") + ".");
+        results_text3.setText("Good job!");
+        replay_button.setText("PLAY AGAIN");
+        replay_button.setOnClickListener(this::restart_game);
+    }
+
+    private void restart_game(View view) {
+        init_game();
+    }
+
+    private void check_win() {
+        for (int i = 0; i < ROW_COUNT; i++) {
+            for (int j = 0; j < COLUMN_COUNT; j++) {
+                if (status[i][j] == 0 && board[i][j] != -1) {
+                    return;
+                }
+            }
+        }
+        is_win = true;
+        display_results();
     }
 }
