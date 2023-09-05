@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String FLAG_ICON = "\uD83D\uDEA9";
     private static final String FLAG_TEXT = FLAG_ICON + " ";
     private static final String TIME_TEXT = "\uD83D\uDD53 ";
+    private static final String MINE_ICON = "\uD83D\uDCA3";
 
     private ArrayList<TextView> cell_tvs;
     private TextView tv_flag;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int time = 0;
     private boolean started_timer = false;
     private boolean is_win = false;
+    private boolean game_just_ended = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         time = 0;
         started_timer = false;
         is_win = false;
+        game_just_ended = false;
 
         tv_flag = findViewById(R.id.tv_flag);
         tv_time = findViewById(R.id.tv_time);
@@ -98,24 +101,28 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void onClickTV(View view) {
-        TextView tv = (TextView) view;
-        int n = findIndexOfCellTextView(tv);
-        int i = n / COLUMN_COUNT;
-        int j = n % COLUMN_COUNT;
-        if (is_flag_mode) {
-            flag_cell(i, j);
+        if (game_just_ended) {
+            display_results();
         } else {
-            if (status[i][j] == 0) {
-                if (board[i][j] == -1) {
-                    display_results();
-                } else {
-                    uncover_cell(i, j);
-                    if (!started_timer) {
-                        time = 0;
-                        started_timer = true;
-                        start_timer();
+            TextView tv = (TextView) view;
+            int n = findIndexOfCellTextView(tv);
+            int i = n / COLUMN_COUNT;
+            int j = n % COLUMN_COUNT;
+            if (is_flag_mode) {
+                flag_cell(i, j);
+            } else {
+                if (status[i][j] == 0) {
+                    if (board[i][j] == -1) {
+                        reveal_mines();
+                    } else {
+                        uncover_cell(i, j);
+                        if (!started_timer) {
+                            time = 0;
+                            started_timer = true;
+                            start_timer();
+                        }
+                        check_win();
                     }
-                    check_win();
                 }
             }
         }
@@ -213,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void display_results() {
+        game_just_ended = false;
         started_timer = false;
         setContentView(R.layout.results_screen);
         TextView results_text1 = findViewById(R.id.results_text1);
@@ -239,6 +247,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         is_win = true;
-        display_results();
+        reveal_mines();
+    }
+
+    private void reveal_mines() {
+        started_timer = false;
+        game_just_ended = true;
+        for (int i = 0; i < ROW_COUNT; i++) {
+            for (int j = 0; j < COLUMN_COUNT; j++) {
+                if (board[i][j] == -1) {
+                    TextView tv = cell_tvs.get(i * COLUMN_COUNT + j);
+                    tv.setText(MINE_ICON);
+                }
+            }
+        }
     }
 }
