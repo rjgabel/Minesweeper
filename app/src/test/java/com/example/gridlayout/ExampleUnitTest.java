@@ -1,4 +1,4 @@
-package com.example.minesweeper;
+package com.example.gridlayout;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.minesweeper;
+package com.example.gridlayout;
 //test for commit
 import android.annotation.SuppressLint;
 import android.graphics.Color;
